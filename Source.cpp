@@ -3,9 +3,8 @@
 #include<stack>
 #include<algorithm>
 #include<cmath>
-
 using namespace std;
-// stack begin
+
 struct node
 {
 	int data;
@@ -32,37 +31,43 @@ void pop()
 		top = top->next;
 	}
 }
-// end of stack
-int evaluatePostfix(string exp)
-{
-	for (int i = 0; i < exp.size(); ++i) {
 
-		if (isdigit(exp[i]))
+int Postfix_evaluation(string exp)
+{
+	for (int i = 0; i < exp.length(); ++i) {
+
+
+		if (exp[i] >= '0' && exp[i] <= '9')
 		{
 			push(exp[i] - '0');
 		}
 		else {
-			int val1 = top->data;
+			int s1 = top->data;
 			pop();
-			int val2 = top->data;
-			 pop();
-			switch (exp[i]) {
-			case '+':
-				push(val2 + val1);
-				break;
-			case '-':
-				push(val2 - val1);
-				break;
-			case '*':
-				push(val2 * val1);
-				break;
-			case '/':
-				push(val2 / val1);
-				break;
-			case '^':
-				push(val2 ^ val1);
-				break;
+			int s2 = top->data;
+			pop();
+			if (exp[i] == '+')
+			{
+
+				push(s1 + s2);
 			}
+			else if (exp[i] == '-')
+			{
+				push(s1 - s2);
+			}
+			else if (exp[i] == '*')
+			{
+				push(s1 * s2);
+			}
+			else if (exp[i] == '/')
+			{
+				push(s1 / s2);
+			}
+			else if (exp[i] == '^')
+			{
+				push(s1 ^ s2);
+			}
+
 		}
 	}
 	return top->data;
@@ -70,9 +75,9 @@ int evaluatePostfix(string exp)
 
 int main()
 {
-	string exp ;
-	cin >> exp;
-	cout << "postfix evaluation: " << evaluatePostfix(exp);
+	string s;
+	cin >> s;
+	cout << "postfix evaluation: " << Postfix_evaluation(s);
 
 	return 0;
 }
